@@ -17,11 +17,8 @@ Hub.listen("auth", ({ payload }) => {
   }
 });
 
-export const amplifyConfig = parseAmplifyConfig(awsmobile);
-
 const inter = Inter({ subsets: ["latin"] });
-
-Amplify.configure(amplifyConfig, { ssr: true });
+Amplify.configure(parseAmplifyConfig(awsmobile), { ssr: true });
 
 export default function RootLayout({
   children,
