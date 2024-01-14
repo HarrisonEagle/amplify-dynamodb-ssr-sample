@@ -4,7 +4,12 @@ import { Note } from "@/entities";
 import { Button, HStack, VStack, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const NoteClient = ({ notes }: { notes: Note[] }) => {
+type Props = {
+  notes: Note[];
+  putNote: (data: FormData) => Promise<void>;
+  deleteNote: (data: FormData) => Promise<void>;
+};
+export const NoteClient = ({ notes, putNote, deleteNote }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [edittingNote, setEdittingNote] = useState<Note | undefined>();
 
@@ -21,10 +26,11 @@ export const NoteClient = ({ notes }: { notes: Note[] }) => {
           edittingNote={edittingNote}
           isOpen={isOpen}
           onClose={onClose}
+          putNote={putNote}
         />
       </HStack>
       <div>
-        <NoteList notes={notes} onUpdate={onUpdate} />
+        <NoteList notes={notes} onUpdate={onUpdate} deleteNote={deleteNote} />
       </div>
     </VStack>
   );

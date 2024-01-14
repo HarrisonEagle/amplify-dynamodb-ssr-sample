@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteNote } from "@/controllers";
 import { Note } from "@/entities";
 import {
   Card,
@@ -16,10 +15,11 @@ import {
 
 type Props = {
   onUpdate: (note: Note) => void;
+  deleteNote: (data: FormData) => Promise<void>;
   note: Note;
 };
 
-export const NoteCard = ({ note, onUpdate }: Props) => {
+export const NoteCard = ({ note, onUpdate, deleteNote }: Props) => {
   const onUpdateClick = () => {
     onUpdate(note);
   };
