@@ -1,4 +1,5 @@
 "use client";
+import { NoteController } from "@/controllers/note";
 import { Note } from "@/entities";
 import {
   Button,
@@ -18,12 +19,12 @@ type Props = {
   edittingNote?: Note;
   isOpen: boolean;
   onClose: () => void;
-  putNote: (data: FormData) => Promise<void>
+  noteController: NoteController
 };
 
-export const EditorModal = ({ edittingNote, isOpen, onClose, putNote }: Props) => {
+export const EditorModal = ({ edittingNote, isOpen, onClose, noteController }: Props) => {
   const formAction = async (formData: FormData) => {
-    await putNote(formData);
+    await noteController.putNote(formData);
     onClose();
   };
 
@@ -38,6 +39,7 @@ export const EditorModal = ({ edittingNote, isOpen, onClose, putNote }: Props) =
             <ModalBody>
               <input
                 hidden
+                readOnly
                 name="note_id"
                 value={edittingNote ? edittingNote.note_id : ""}
               />

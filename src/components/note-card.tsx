@@ -1,5 +1,6 @@
 "use client";
 
+import { NoteController } from "@/controllers/note";
 import { Note } from "@/entities";
 import {
   Card,
@@ -15,11 +16,11 @@ import {
 
 type Props = {
   onUpdate: (note: Note) => void;
-  deleteNote: (data: FormData) => Promise<void>;
+  noteController: NoteController;
   note: Note;
 };
 
-export const NoteCard = ({ note, onUpdate, deleteNote }: Props) => {
+export const NoteCard = ({ note, onUpdate, noteController }: Props) => {
   const onUpdateClick = () => {
     onUpdate(note);
   };
@@ -37,8 +38,8 @@ export const NoteCard = ({ note, onUpdate, deleteNote }: Props) => {
           <Button variant="solid" colorScheme="blue" onClick={onUpdateClick}>
             Update
           </Button>
-          <form action={deleteNote}>
-            <input hidden name="note_id" value={note.note_id} />
+          <form action={noteController.deleteNote}>
+            <input hidden readOnly name="note_id" value={note.note_id} />
             <Button type="submit" variant="ghost" colorScheme="red">
               Delete
             </Button>
