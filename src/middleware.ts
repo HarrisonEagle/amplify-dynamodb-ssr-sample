@@ -1,11 +1,16 @@
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth/server";
+import { fetchAuthSession } from "aws-amplify/auth/server";
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { runWithAmplifyServerContext } from "./utils/server-utils";
+import { createServerRunner } from "@aws-amplify/adapter-nextjs";
+import awsmobile from "./aws-exports";
+
+// resolve edge nodejs api not supported error
+const { runWithAmplifyServerContext } = createServerRunner({
+  config: awsmobile,
+});
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
     const response = NextResponse.next();
-
     // The runWithAmplifyServerContext will run the operation below
     // in an isolated matter.
     const authenticated = await runWithAmplifyServerContext({

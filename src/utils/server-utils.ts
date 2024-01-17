@@ -5,14 +5,14 @@ import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth/server";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { cookies } from "next/headers";
 
-export const { runWithAmplifyServerContext } = createServerRunner({
+const { runWithAmplifyServerContext } = createServerRunner({
   config: awsmobile,
 });
 
 const getCurrentSessionFromServer = async () =>
   await runWithAmplifyServerContext({
     nextServerContext: { cookies },
-    operation: async (contextSpec) => fetchAuthSession(contextSpec, {forceRefresh: true}),
+    operation: async (contextSpec) => fetchAuthSession(contextSpec),
   });
 
 export const getCurrentUserFromServer = async () =>
