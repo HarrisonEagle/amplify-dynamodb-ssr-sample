@@ -1,7 +1,9 @@
-import { NoteClient } from "@/components";
-import { getNotes, putNote, deleteNote } from "@/controllers"; // import all server actions at here to avoid webpack build error
+import { NoteClient } from "@/components/note-client";
+// import all server actions at here to avoid webpack build error
+import { getNoteController } from "@/controllers/note";
 
 export default async function Home() {
-  const notes = await getNotes();
-  return <NoteClient notes={notes} putNote={putNote} deleteNote={deleteNote} />;
+  const noteController = getNoteController();
+  const notes = await noteController.getNotes();
+  return <NoteClient notes={notes} noteController={noteController} />
 }

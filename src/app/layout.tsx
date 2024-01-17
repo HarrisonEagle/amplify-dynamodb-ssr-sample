@@ -4,21 +4,22 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Amplify } from "aws-amplify";
 import awsmobile from "../aws-exports";
-import { parseAmplifyConfig } from "aws-amplify/utils";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { NavBar } from "@/components";
-import { Hub } from "aws-amplify/utils";
-
-Hub.listen("auth", ({ payload }) => {
-  // TODO: refactor
-  if (payload.event === "signedIn") {
-    location.reload();
-  }
-});
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { NavBar } from "@/components/nav-bar";
+import { CookieStorage, parseAmplifyConfig } from "aws-amplify/utils";
+import { cognitoUserPoolsTokenProvider } from "aws-amplify/auth/cognito";
 
 const inter = Inter({ subsets: ["latin"] });
-Amplify.configure(parseAmplifyConfig(awsmobile), { ssr: true });
+const amplifyConfig = parseAmplifyConfig(awsmobile);
+
+cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
+Amplify.configure(amplifyConfig, { ssr: true });
+
+const theme = extendTheme({
+  initialColorMode: "light",
+  useSystemColorMode: false,
+});
 
 export default function RootLayout({
   children,
@@ -27,13 +28,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Authenticator>
-          <ChakraProvider cssVarsRoot="body">
+      <body className={inter.className} >
+        <ChakraProvider cssVarsRoot="body" theme={theme}>
+          <Authenticator.Provider>
             <NavBar />
             {children}
-          </ChakraProvider>
-        </Authenticator>
+          </Authenticator.Provider>
+        </ChakraProvider>
       </body>
     </html>
   );

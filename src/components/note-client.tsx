@@ -1,15 +1,16 @@
 "use client";
-import { EditorModal, NoteList } from "@/components";
+import { EditorModal } from "@/components/editor-modal";
+import { NoteList } from "@/components/note-list";
+import { NoteController } from "@/controllers/note";
 import { Note } from "@/entities";
 import { Button, HStack, VStack, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 
 type Props = {
   notes: Note[];
-  putNote: (data: FormData) => Promise<void>;
-  deleteNote: (data: FormData) => Promise<void>;
+  noteController: NoteController
 };
-export const NoteClient = ({ notes, putNote, deleteNote }: Props) => {
+export const NoteClient = ({ notes, noteController }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [edittingNote, setEdittingNote] = useState<Note | undefined>();
 
@@ -26,11 +27,11 @@ export const NoteClient = ({ notes, putNote, deleteNote }: Props) => {
           edittingNote={edittingNote}
           isOpen={isOpen}
           onClose={onClose}
-          putNote={putNote}
+          noteController={noteController}
         />
       </HStack>
       <div>
-        <NoteList notes={notes} onUpdate={onUpdate} deleteNote={deleteNote} />
+        <NoteList notes={notes} onUpdate={onUpdate} noteController={noteController} />
       </div>
     </VStack>
   );
