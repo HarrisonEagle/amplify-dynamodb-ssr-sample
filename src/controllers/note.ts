@@ -7,10 +7,8 @@ export type NoteController = {
     deleteNote: (data: FormData) => Promise<void>
 }
 
-export const getNoteController = (): NoteController => {
-  return {
-    getNotes: getNotes,
-    putNote: putNote,
-    deleteNote: deleteNote
-  }
+export const noteController: NoteController = {
+  getNotes: getNotes,
+  putNote: putNote,
+  deleteNote: deleteNote
 }

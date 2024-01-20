@@ -16,7 +16,7 @@ export default function Page() {
         router.replace("/");
       }
     });
-  }, []);
+  }, [router]);
 
   return (
     <Center h='calc(80vh)'>

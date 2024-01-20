@@ -11,7 +11,7 @@
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.0.12",
     "@aws-amplify/ui-react": "^6.1.1",
-    "@aws-sdk/client-dynamodb": "^3.490.0",
+    "@aws-sdk/client-dynamodb": "^3.494.0",
     "@chakra-ui/next-js": "^2.2.0",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
