@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const NavBar = () => {
   const { user, signOut } = useAuthenticator((context) => [context.user]);

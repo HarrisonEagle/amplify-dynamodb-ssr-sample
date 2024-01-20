@@ -1,6 +1,6 @@
 "use client";
 
-import { NoteController } from "@/controllers/note";
+import { noteController } from "@/controllers/note";
 import { Note } from "@/entities";
 import {
   Card,
@@ -16,11 +16,10 @@ import {
 
 type Props = {
   onUpdate: (note: Note) => void;
-  noteController: NoteController;
   note: Note;
 };
 
-export const NoteCard = ({ note, onUpdate, noteController }: Props) => {
+export const NoteCard = ({ note, onUpdate }: Props) => {
   const onUpdateClick = () => {
     onUpdate(note);
   };
